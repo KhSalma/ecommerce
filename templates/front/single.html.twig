@@ -1,0 +1,192 @@
+
+{% extends 'front-base.html.twig' %}
+{% block title 'Manga' %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="{{ asset('plugins/themify-icons/themify-icons.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('styles/single_styles.css')}}">
+<link rel="stylesheet" type="text/css" href="{{ asset('styles/single_responsive.css')}}">
+{% endblock %}
+
+	
+{% block body %}
+<div class="fs_menu_overlay"></div>
+
+	
+	<div class="container single_product_container">
+		<div class="row">
+			<div class="col">
+
+				<!-- Breadcrumbs -->
+
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li class="active"><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i>{{manga.title}}</a></li>
+					</ul>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-7">
+				<div class="single_product_pics">
+					<div class="row">
+						<div class="col-lg-3 thumbnails_col order-lg-1 order-2">
+							<div class="single_product_thumbnails">
+								<ul>
+									<li><img src="{{manga.mainImage}}" alt="" data-image="{{manga.mainImage}}"></li>
+									<li class="active"><img src="{{manga.secondary1Image}}" alt="" data-image="{{manga.secondary1Image}}"></li>
+									<li><img src="{{manga.secondary2Image}}" alt="" data-image="{{manga.secondary2Image}}"></li>
+								</ul>
+							</div>
+						</div>
+						<div class="col-lg-9 image_col order-lg-2 order-1">
+							<div class="single_product_image">
+								<div class="single_product_image_background" style="background-image:url({{manga.secondary1Image}})"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5">
+				<div class="product_details">
+					<div class="product_details_title">
+						<h2>{{manga.title}}</h2>
+                        
+						
+					</div>
+					
+					<div class="product_price"> {{manga.price}} TND </div>
+					
+					
+					
+					<div class="quantity d-flex flex-column flex-sm-row align-items-sm-center">
+						
+						<form action="{{  path('cart.add', {'id' : manga.id })  }}" method="get">
+					
+                            <span>Quantity:</span>
+							<select name="qty" class="span1">
+							   {% for i in 1..10 %}
+								<option value="{{i}}">{{i}}</option>
+								{% endfor %}
+							</select>
+
+							<div>
+							    <button class="red_button review_submit_btn trans_300">add to cart</a></button>
+							</div>
+						</form>
+							 
+						
+						
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- Tabs -->
+
+	<div class="tabs_section_container">
+
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="tabs_container">
+						<ul class="tabs d-flex flex-sm-row flex-column align-items-left align-items-md-center justify-content-center">
+							<li class="tab active" data-active-tab="tab_1"><span>Description</span></li>
+							<li class="tab" data-active-tab="tab_3"><span>Reviews</span></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+
+					<!-- Tab Description -->
+
+					<div id="tab_1" class="tab_container active">
+						<div class="row">
+							<div class="col-lg-5 desc_col">
+								<div class="tab_title">
+									<h4>Description</h4>
+								</div>
+								<div class="tab_text_block">
+									<h2>{{manga.title}}</h2>
+									{{manga.longDescription}}
+								</div>
+								
+							</div>
+							
+						</div>
+					</div>
+
+					
+
+					<!-- Tab Reviews -->
+
+					<div id="tab_3" class="tab_container">
+						<div class="row">
+
+							<!-- User Reviews -->
+
+							<div class="col-lg-6 reviews_col">
+								<div class="tab_title reviews_title">
+									<h4>Reviews </h4>
+								</div>
+
+								<!-- User Review -->
+                               {% for r in reviews %}
+								<div class="user_review_container d-flex flex-column flex-sm-row">
+									<div class="user">
+										<div class="user_pic"></div>
+										
+									</div>
+									<div class="review">
+										<div class="review_date">{% if r.createdAt %}{{ r.createdat|date('Y-m-d') }}{% endif %}</div>
+										<div class="user_name">{{r.Username}}</div>
+										<p>{{r.Comment}}</p>
+									</div>
+								</div>
+                                {% endfor %}
+								
+
+							</div>
+
+							<!-- Add Review -->
+
+							<div class="col-lg-6 add_review_col">
+
+								<div class="add_review">
+								{{ form_start(form)}}
+                                    
+									{{ form_rest(form)}}
+                                   
+                                      <button class="btn btn-primary">{{button|default('Submit')}} </button>
+                                {{ form_end(form)}}
+									
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	
+</div>
+{% endblock %}
+{% block javascripts %}
+
+<script src="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.js')}}"></script>
+<script src="{{ asset('js/single_custom.js')}}"></script>
+{% endblock %}

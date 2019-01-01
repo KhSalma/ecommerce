@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate reviews' %}
+{% block body %}
+{{ include ('admin/review/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Administrate reviews </h1>
+   {% for message in app.flashes('success') %}
+   <div class="alert alert-success" >{{ message }}</div>
+   {% endfor %}
+   <table class="table table-striped">
+     <thead>
+            <tr>
+              <th>Id</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Comment</th>
+              <th>Manga</th>
+              <th>Actions</th>
+            </tr>
+      </thead>
+      <tbody>
+      {% for review in reviews %}
+            <tr>
+              <td>{{ review.id}}</td>
+              <td>{{ review.username}}</td>
+              <td>{{ review.email}}</td>
+              <td>{{ review.comment}}</td>
+              <td>{{ review.manga}}</td>
+              <td>
+                   <a href="{{ path('admin.review.edit' , {id: review.id})}}" class="btn btn-secondary">Edit</a>
+                   <form method="post" action="{{ path('admin.review.delete', {id : review.id})}}" style="display: inline-block" onsubmit="return confirm('Are you sure ? ')">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <button class ="btn btn-danger"> Delete </button>
+                   </from>
+                   
+              </td>
+
+            </tr>
+       {% endfor %}    
+      </tbody>
+      </table>
+      
+      
+</div>
+  
+
+
+
+{% endblock %}

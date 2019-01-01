@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate mangas' %}
+{% block body %}
+{{ include ('admin/manga/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Administrate mangas </h1>
+   {% for message in app.flashes('success') %}
+   <div class="alert alert-success" >{{ message }}</div>
+   {% endfor %}
+   <table class="table table-striped">
+     <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Short Description</th>
+              <th>Main Image</th>
+              <th>Price</th>
+              <th>Actions</th>
+            </tr>
+      </thead>
+      <tbody>
+      {% for manga in mangas %}
+            <tr>
+              <td>{{ manga.id}}</td>
+              <td>{{ manga.title}}</td>
+              <td>{{manga.shortDescription}}</td>
+              <td>{{manga.mainImage}}</td>
+              <td>{{manga.price}}</td>
+              <td>
+                   <a href="{{ path('admin.manga.edit' , {id: manga.id})}}" class="btn btn-secondary">Edit</a>
+                   <form method="post" action="{{ path('admin.manga.delete', {id : manga.id})}}" style="display: inline-block" onsubmit="return confirm('Are you sure ? ')">
+                      <input type="hidden" name="_method" value="DELETE">
+                      <button class ="btn btn-danger"> Delete </button>
+                   </from>
+                   
+              </td>
+
+            </tr>
+       {% endfor %}    
+      </tbody>
+      </table>
+      <div class="text-right">
+         
+         <a href="{{ path('admin.manga.new' )}}" class="btn btn-dark"> Create a new manga </a>
+      </div>
+      
+</div>
+  
+
+
+
+{% endblock %}

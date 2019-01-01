@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate reviews' %}
+{% block body %}
+{{ include ('admin/review/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Edit the review </h1>
+  {{ include ('admin/review/_form.html.twig', { button:'Edit'})}}
+  
+</div>
+  
+
+
+
+{% endblock %}

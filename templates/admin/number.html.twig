@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate numbers' %}
+{% block body %}
+{{ include ('admin/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Numbers : </h1>
+  
+   <table class="table table-striped">
+     
+      <tbody>
+      
+            <tr>
+              <td>Total number of categories</td>
+              <td>{{nbrCat}}</td>
+
+            </tr>
+            <tr>
+              <td>Total number of mangas</td>
+              <td> {{nbrM}}</td>
+
+            </tr>
+            <tr>
+              <td>Total number of orders</td>
+              <td>nbC </td>
+
+            </tr>
+            <tr>
+              <td>Total amount of orders</td>
+              <td>Tc</td>
+
+            </tr>
+            <tr>
+              <td>Total number of reviews</td>
+              <td>{{nbrRev}}</td>
+
+            </tr>
+       
+      </tbody>
+      </table>
+      
+      
+</div>
+  
+
+
+
+{% endblock %}

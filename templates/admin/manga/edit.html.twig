@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate mangas' %}
+{% block body %}
+{{ include ('admin/manga/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Edit the manga </h1>
+  {{ include ('admin/manga/_form.html.twig', { button:'Edit'})}}
+  
+</div>
+  
+
+
+
+{% endblock %}

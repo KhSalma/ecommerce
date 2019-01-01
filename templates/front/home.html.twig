@@ -1,0 +1,106 @@
+{% extends 'front-base.html.twig' %}
+
+{% block body %}
+
+
+	
+
+	<!-- Slider -->
+     
+	<div class="main_slider" style="background-image:url(../images/image1.jpg)">
+		<div class="container fill_height">
+			<div class="row align-items-center fill_height">
+				<div class="col">
+					<div class="main_slider_content">
+						<h1 style="color:Crimson;">Get up to 30% Off New Arrivals</h1>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Banner -->
+
+	<div class="banner">
+		<div class="container">
+        <div class="col text-center">
+					<div class="section_title new_arrivals_title">
+						<h2>Categories</h2>
+					</div>
+				</div>
+			<div class="row">
+            <!-- for -->
+			{% for cat in categories %}
+				<div class="col-md-4">
+					<div class="banner_item align-items-center" style="background-image:url({{cat.image}})">
+						<div class="banner_category">
+							<a href="{{ path('category.index', {'id' : cat.id })  }}">{{cat.name}}</a>
+						</div>
+					</div>
+				</div>
+				<!-- endfor -->
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- New Arrivals -->
+
+	<div class="new_arrivals">
+		<div class="container">
+			<div class="row">
+				<div class="col text-center">
+					<div class="section_title new_arrivals_title">
+						<h2>Some Mangas</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row align-items-center">
+				<div class="col text-center">
+					<div class="new_arrivals_sorting">
+						<ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+
+						
+                     {% for m in mangas %}
+						<div class="product-item men">
+							<div class="product discount product_filter">
+								<div class="product_image">
+									<img src="{{m.mainImage}}" alt="mainImage">
+								</div>
+								<div class="product_info">
+									<h4 class="product_name">{{m.title}}</a></h4>
+									<div class="product_name">{{m.shortDescription}}</div>
+								</div>
+							</div>
+							<div class="red_button add_to_cart_button"><a href="{{ path('manga.index', {'id' : m.id })  }}">Details</a></div>
+						</div>
+                       {% endfor %}
+						
+
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+
+						
+	
+
+	
+
+	
+
+	{% endblock %}

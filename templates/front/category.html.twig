@@ -1,0 +1,109 @@
+{% extends 'front-base.html.twig' %}
+{% block title 'Category' %}
+
+{% block stylesheets %}
+  <link rel="stylesheet" type="text/css" href="{{ asset('styles/categories_styles.css')}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset('styles/categories_responsive.css')}}">
+{% endblock %}
+
+	
+{% block body %}
+	<div class="fs_menu_overlay"></div>
+
+	<!-- Hamburger Menu -->
+
+	
+
+	<div class="container product_section_container">
+		<div class="row">
+			<div class="col product_section clearfix">
+
+				<!-- Breadcrumbs -->
+
+				<div class="breadcrumbs d-flex flex-row align-items-center">
+					<ul>
+						<li><a href="{{ path('home.index') }}">Home</a></li>
+						<li class="active"><i class="fa fa-angle-right" aria-hidden="true"></i>{{category.name}}</a></li>
+					</ul>
+				</div>
+
+				<!-- Sidebar -->
+
+				<div class="sidebar">
+					<div class="sidebar_section">
+						<div class="sidebar_title">
+							<h5>Categories:</h5>
+						</div>
+						<ul class="sidebar_categories">
+						{% for cat in categories %}
+							<li><a href="{{ path('category.index', {'id' : cat.id })  }}">{{cat.name}}</a></li>
+							
+							{% endfor %}
+						</ul>
+					</div>
+
+					
+
+					
+
+				</div>
+
+				<!-- Main Content -->
+
+				<div class="main_content">
+
+					<!-- Products -->
+
+					<div class="products_iso">
+						<div class="row">
+							<div class="col">
+
+								
+								<!-- Product Grid -->
+
+								<div class="product-grid">
+                             <div class="row">
+				                 <div class="col">
+					               <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+									
+                              {% for m in mangas %}
+									<div class="product-item men">
+										<div class="product discount product_filter">
+											<div class="product_image">
+												<img src="{{m.mainImage}}" alt="mainImage">
+											</div>
+						
+											<div class="product_info">
+												<h4 class="product_name">{{m.title}}</a></h4>
+									            <div class="product_name">{{m.shortDescription}}</div>
+												
+											</div>
+										</div>
+										<div class="red_button add_to_cart_button"><a href="{{ path('manga.index', {'id' : m.id })  }}">Details</a></div>
+									</div>
+
+									 {% endfor %}
+                                     </div>
+                                 </div>
+						       </div>
+								
+								</div>
+
+								
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+
+
+{% endblock %}
+{% block javascripts %}
+<script src="{{ asset('plugins/jquery-ui-1.12.1.custom/jquery-ui.js')}}"></script>
+{% endblock %}
+
