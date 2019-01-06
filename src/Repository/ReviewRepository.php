@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Review;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query;
 
 /**
  * @method Review|null find($id, $lockMode = null, $lockVersion = null)
@@ -30,6 +31,17 @@ class ReviewRepository extends ServiceEntityRepository
                     ->getResult();
          return $query ;
     
+    }
+    /**
+      * @return Query 
+     */
+    public function findAllReviews(): Query
+    {   
+        $em = $this->getEntityManager();
+        $dql = "SELECT r FROM App\Entity\Review r  ";
+        $query = $em->createQuery($dql);
+        return $query
+    ;
     }
 
     

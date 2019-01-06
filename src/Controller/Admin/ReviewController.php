@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface ;
 class ReviewController extends AbstractController
 {
 
@@ -27,9 +28,14 @@ class ReviewController extends AbstractController
       * @Route("/admin/review", name="admin.review.index")
       * @return \Symfony\Component\HttpFoundation\Response
       */
-     public function index()
+     public function index(PaginatorInterface $paginator  , Request $request)
      {
-        $reviews = $this->repository->findAll();
+        $reviews=$paginator->paginate(
+            $this->repository->findAllReviews() , 
+            $request->query->getInt('page', 1),
+            4
+       );
+       
         return $this->render('admin/review/index.html.twig' , compact('reviews'));
      }
 

@@ -43,6 +43,9 @@
          
          <a href="{{ path('admin.manga.new' )}}" class="btn btn-dark"> Create a new manga </a>
       </div>
+      <div class="pagination">
+         {{ knp_pagination_render(mangas) }}
+     </div>
       
 </div>
   

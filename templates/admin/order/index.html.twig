@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate orders' %}
+{% block body %}
+{{ include ('admin/order/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Orders : </h1>
+  
+   <table class="table table-striped">
+     <thead>
+            <tr>
+              <th>Id</th>
+              <th>FirstName</th>
+              <th>LastName</th>
+              <th>Email</th>
+              <th>Address</th>
+              <th>Action</th>
+            </tr>
+      </thead>
+      <tbody>
+      {% for o in orders %}
+            <tr>
+              <td>{{ o.id}}</td>
+              <td>{{ o.firstName}}</td>
+              <td>{{ o.lastName}}</td>
+              <td>{{ o.email}}</td>
+              <td>{{ o.address}}</td>
+              <td><a href="{{ path('admin.order.details' , {id: o.id})}}" class="btn btn-secondary">Details</a></td>
+            </tr>
+       {% endfor %}    
+      </tbody>
+      </table>
+      <div class="pagination">
+         {{ knp_pagination_render(orders) }}
+     </div>
+      
+      
+</div>
+  
+
+
+
+{% endblock %}

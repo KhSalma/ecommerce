@@ -63,10 +63,19 @@ class Manga
      */
     private $reviews;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderManga", mappedBy="manga", orphanRemoval=true)
+     */
+    private $orderMangas;
+
+   
+
     public function __construct()
     {
         $this->categories = new ArrayCollection();
         $this->reviews = new ArrayCollection();
+        $this->orderMangas = new ArrayCollection();
+        
     }
     public function __toString(){
         return $this->title;
@@ -222,4 +231,37 @@ class Manga
 
         return $this;
     }
+
+    /**
+     * @return Collection|OrderManga[]
+     */
+    public function getOrderMangas(): Collection
+    {
+        return $this->orderMangas;
+    }
+
+    public function addOrderManga(OrderManga $orderManga): self
+    {
+        if (!$this->orderMangas->contains($orderManga)) {
+            $this->orderMangas[] = $orderManga;
+            $orderManga->setManga($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderManga(OrderManga $orderManga): self
+    {
+        if ($this->orderMangas->contains($orderManga)) {
+            $this->orderMangas->removeElement($orderManga);
+            // set the owning side to null (unless already changed)
+            if ($orderManga->getManga() === $this) {
+                $orderManga->setManga(null);
+            }
+        }
+
+        return $this;
+    }
+
+   
 }

@@ -6,6 +6,7 @@ use App\Entity\Manga;
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\Query;
 
 /**
  * @method Manga|null find($id, $lockMode = null, $lockVersion = null)
@@ -31,20 +32,34 @@ class MangaRepository extends ServiceEntityRepository
         ->getResult()
     ;
     }
+     /**
+      * @return Query 
+     */
+    public function findAllMangas(): Query
+    {   
+        $em = $this->getEntityManager();
+        $dql = "SELECT m FROM App\Entity\Manga m  ";
+        $query = $em->createQuery($dql);
+        return $query
+    ;
+    }
+
+    
 
     /**
-      * @return Manga[] 
+      * @return Query 
      */
-    public function findbyCat(Category $category): array
+    public function findbyCat(Category $category): Query
     {
         return $this->createQueryBuilder('m')
         ->innerJoin('m.categories', 'c')
         ->where('c.id = :cat_id')
         ->setParameter('cat_id', $category->getId())
         ->getQuery()
-        ->getResult()
+        
     ;
     }
+
     
 
     // /**

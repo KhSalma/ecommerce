@@ -162,12 +162,7 @@
 							<div class="col-lg-6 add_review_col">
 
 								<div class="add_review">
-								{{ form_start(form)}}
-                                    
-									{{ form_rest(form)}}
-                                   
-                                      <button class="btn btn-primary">{{button|default('Submit')}} </button>
-                                {{ form_end(form)}}
+								{{ include ('_form.html.twig', { button:'Submit'})}}
 									
 								</div>
 

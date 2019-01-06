@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface ;
 class FrontController extends AbstractController
 {
     /**
@@ -26,12 +27,17 @@ class FrontController extends AbstractController
     /**
      * @Route("/home/category/{id}", name="category.index")
      */
-    public function categoryAction(Category $cat)
+    public function categoryAction(Category $cat , PaginatorInterface $paginator  , Request $request)
     {
       $em = $this->getDoctrine()->getManager();
      
       $categories = $em->getRepository(Category::class)->findAll();
-      $mangas = $em->getRepository(Manga::class)->findByCat($cat);
+      $mangas=$paginator->paginate(
+        $em->getRepository(Manga::class)->findByCat($cat) , 
+        $request->query->getInt('page', 1),
+        4
+      );
+      
       return $this->render('front/category.html.twig',['mangas' =>$mangas, 'category' =>$cat , 'categories' => $categories]);
    }
    
@@ -51,6 +57,8 @@ class FrontController extends AbstractController
           {  
             $em->persist($review);
              $em->flush();
+             $this->addFlash('success' , 'successfully added');
+             return $this->redirectToRoute('manga.index', ['id' => $manga->getId()]) ;
              
           } 
 

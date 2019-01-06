@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+{% block title 'Administrate orders' %}
+{% set totalET = 0 %}
+{% block body %}
+{{ include ('admin/order/_active.html.twig') }}
+<div class="container mt-4">
+   <h1> Order Details : </h1>
+  
+   <table class="table table-striped">
+     <thead>
+            <tr>
+              <th>Manga_Id</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Total</th>
+              <th>Date</th>
+            </tr>
+      </thead>
+      <tbody>
+      {% for d in order.orderMangas %}
+            <tr>
+              <td>{{ d.manga.id}}</td>
+              <td>{{ d.quantity}}</td>
+              <td>{{ d.price }}</td>
+              <td>{{ d.price * d.quantity }}</td>
+              <td>{{ d.createdAt|date('Y-m-d ') }}</td>
+            </tr>
+            {% set totalET =  d.price * d.quantity + totalET %}
+       {% endfor %}    
+      </tbody>
+      </table>
+      
+      <h4> Order Amount : </h4>
+      <dl >
+        <dt>Total excl tax :</dt>
+        <dd>{{totalET}} </dd>
+        <dt>VAT(%) :</dt>
+        <dd>10</dd>
+        <dt>Total amount :</dt>
+        <dd>{{totalET *(1.1)}}</dd>
+      </dl>
+     
+      
+      
+</div>
+  
+
+
+
+{% endblock %}

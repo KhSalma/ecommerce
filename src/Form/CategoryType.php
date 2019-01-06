@@ -6,6 +6,7 @@ use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class CategoryType extends AbstractType
 {
@@ -13,7 +14,7 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('descriptive_text')
+            ->add('descriptive_text' , CKEditorType::class)
             ->add('image')
             
         ;

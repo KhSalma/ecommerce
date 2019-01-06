@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface ;
 class MangaController extends AbstractController
 {
  /**
@@ -26,9 +27,14 @@ class MangaController extends AbstractController
       * @Route("/admin/manga", name="admin.manga.index")
       * @return \Symfony\Component\HttpFoundation\Response
       */
-     public function index()
-     {
-        $mangas = $this->repository->findAll();
+     public function index(PaginatorInterface $paginator  , Request $request)
+     {    
+        $mangas=$paginator->paginate(
+            $this->repository->findAllMangas() , 
+            $request->query->getInt('page', 1),
+            4
+       );
+        
         return $this->render('admin/manga/index.html.twig' , compact('mangas'));
      }
 

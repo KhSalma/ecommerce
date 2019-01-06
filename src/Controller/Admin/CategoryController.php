@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\Common\Persistence\ObjectManager;
+use Knp\Component\Pager\PaginatorInterface ;
 class CategoryController extends AbstractController
 {
 /**
@@ -26,9 +27,14 @@ class CategoryController extends AbstractController
       * @Route("/admin/category", name="admin.category.index")
       * @return \Symfony\Component\HttpFoundation\Response
       */
-     public function index()
-     {
-        $categories = $this->repository->findAll();
+     public function index(PaginatorInterface $paginator  , Request $request)
+     {  
+        $categories=$paginator->paginate(
+            $this->repository->findAllCat() , 
+            $request->query->getInt('page', 1),
+            4
+       );
+        //$categories = $this->repository->findAll();
         return $this->render('admin/category/index.html.twig' , compact('categories'));
      }
 
@@ -59,7 +65,7 @@ class CategoryController extends AbstractController
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-     public function edit(Category $category , Request $request)
+     public function edit(Category $category , Request $request )
     {
         
        $form = $this->createForm(CategoryType::class , $category  );

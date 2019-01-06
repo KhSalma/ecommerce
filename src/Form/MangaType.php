@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType ;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 
 class MangaType extends AbstractType
 {
@@ -16,7 +17,7 @@ class MangaType extends AbstractType
         $builder
             ->add('title')
             ->add('short_description')
-            ->add('long_description')
+            ->add('long_description', CKEditorType::class)
             ->add('main_image')
             ->add('secondary1_image')
             ->add('secondary2_image')

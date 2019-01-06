@@ -2,37 +2,35 @@
 
 namespace App\Repository;
 
-use App\Entity\Orderr;
+use App\Entity\OrderManga;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
-use Doctrine\ORM\Query;
 
 /**
- * @method Orderr|null find($id, $lockMode = null, $lockVersion = null)
- * @method Orderr|null findOneBy(array $criteria, array $orderrBy = null)
- * @method Orderr[]    findAll()
- * @method Orderr[]    findBy(array $criteria, array $orderrBy = null, $limit = null, $offset = null)
+ * @method OrderManga|null find($id, $lockMode = null, $lockVersion = null)
+ * @method OrderManga|null findOneBy(array $criteria, array $orderBy = null)
+ * @method OrderManga[]    findAll()
+ * @method OrderManga[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class OrderRepository extends ServiceEntityRepository
+class OrderMangaRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Orderr::class);
+        parent::__construct($registry, OrderManga::class);
     }
-    /**
-      * @return Query 
-     */
-    public function findAllOrders(): Query
-    {   
+
+    public function FindTotal()
+    {  
         $em = $this->getEntityManager();
-        $dql = "SELECT o FROM App\Entity\Orderr o  ";
-        $query = $em->createQuery($dql);
-        return $query
-    ;
+        $dql = "SELECT SUM(om.price) FROM App\Entity\OrderManga om  ";
+        $query = $em->createQuery($dql)
+                    ->getSingleScalarResult();
+         return $query ;
+       
     }
 
     // /**
-    //  * @return Order[] Returns an array of Order objects
+    //  * @return OrderManga[] Returns an array of OrderManga objects
     //  */
     /*
     public function findByExampleField($value)
@@ -49,7 +47,7 @@ class OrderRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Order
+    public function findOneBySomeField($value): ?OrderManga
     {
         return $this->createQueryBuilder('o')
             ->andWhere('o.exampleField = :val')

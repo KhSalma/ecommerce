@@ -61,12 +61,12 @@
 								
 								<!-- Product Grid -->
 
-								<div class="product-grid">
+							<div class="product-grid">
                              <div class="row">
 				                 <div class="col">
 					               <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
 									
-                              {% for m in mangas %}
+                                    {% for m in mangas %}
 									<div class="product-item men">
 										<div class="product discount product_filter">
 											<div class="product_image">
@@ -79,13 +79,16 @@
 												
 											</div>
 										</div>
-										<div class="red_button add_to_cart_button"><a href="{{ path('manga.index', {'id' : m.id })  }}">Details</a></div>
+									    <div class="red_button add_to_cart_button"><a href="{{ path('manga.index', {'id' : m.id })  }}">Details</a></div>
 									</div>
 
-									 {% endfor %}
+									{% endfor %}
                                      </div>
                                  </div>
 						       </div>
+							   <div class="pagination">
+                               {{ knp_pagination_render(mangas) }}
+                               </div>
 								
 								</div>
 
@@ -97,6 +100,8 @@
 				</div>
 			</div>
 		</div>
+		
+      
 	</div>
 
 	
